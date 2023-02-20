@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for lesson in matieres.lesson.all %}
+
+<br>
+<a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=matieres.slug niveau=matieres.niveaux.slug  %}">Chapitre-{{ lesson.position }} {{ lesson.nom }} </a><br>
+{% endfor %}
+{% endblock %}
