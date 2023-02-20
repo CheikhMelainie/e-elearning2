@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="confirmer la modification" >
+   <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=lesson.matiere.slug niveau=lesson.niveaux.slug  %}" >annuler la modification</a>
+</form>
+
+{% endblock %}
+

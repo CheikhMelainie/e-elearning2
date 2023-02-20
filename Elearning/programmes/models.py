@@ -7,6 +7,8 @@ from turtle import position
 from django.db import models
 from django.template.defaultfilters  import slugify
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.urls import reverse
 
 # Create your models here.
 
@@ -61,3 +63,6 @@ class Lesson(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nom)
         super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("programmes:lessonlist", kwargs={"slug": self.matiere.slug, "niveau": self.niveaux.slug})

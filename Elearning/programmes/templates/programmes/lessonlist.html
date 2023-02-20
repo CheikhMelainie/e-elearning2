@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 {% for lesson in matieres.lesson.all %}
 
-<br>
-<a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=matieres.slug niveau=matieres.niveaux.slug  %}">Chapitre-{{ lesson.position }} {{ lesson.nom }} </a><br>
+<div class="card-group" style="max-width: 40%;margin-left: 35%;">
+    <div class="card">
+      <img src="{% static 'static_files/img/course-1.jpg'%}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=matieres.slug niveau=matieres.niveaux.slug  %}">Chapitre-{{ lesson.position }}  </a>
+        <p class="card-text"><small class="text-muted">{{ lesson.nom }}</small></p>
+      </div>
+    </div>
+  
+  </div>
+
 {% endfor %}
+<a href="{% url 'programmes:lessoncreate' niveau=matieres.niveaux.slug slug=matieres.slug  %}">Creer une lesson</a>
 {% endblock %}
+
+

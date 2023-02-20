@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 {% for matiere in niveau.matiere.all %}
 
-<br>
-<a href="{% url 'programmes:lessonlist' slug=matiere.slug  niveau=niveau.slug %}"> {{ matiere.nom }} </a><br>
-{% endfor %}
+<div class="row row-cols-1 row-cols-md-2" style="margin-left: 35%;">
+    <div class="col mb-4">
+      <div class="card h-100">
+        <img src="{% static 'static_files/img/course-1.jpg'%}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <a href="{% url 'programmes:lessonlist' slug=matiere.slug  niveau=niveau.slug %}"> {{ matiere.nom }} </a>
+          <p class="card-text">{{ matiere.description }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% endfor %}
 {% endblock %}

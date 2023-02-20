@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <br>
-  <p>la lesson institule {{ lesson.nom }}  à été créer par {{ lesson.creer_par }} </p><br>
+  
+<div class="row row-cols-1 row-cols-md-2" style="margin-left: 35%;">
+  <div class="col mb-4">
+    <div class="card h-100">
+      <img src="{% static 'static_files/img/course-1.jpg'%}" class="card-img-top" alt="...">
+      <div class="card-body">
+          <p>la lesson institule {{ lesson.nom }}  à été créer par {{ lesson.creer_par }} </p>
+          <a href="{% url 'programmes:lessonupdate' niveau=lesson.niveaux.slug matiere=lesson.matiere.slug slug=lesson.slug %}" >modifier la lesson</a>
+          <a href="{% url 'programmes:lessondelete' niveau=lesson.niveaux.slug matiere=lesson.matiere.slug slug=lesson.slug %}" >supprimer la lesson</a>
+  
+      </div>
+    </div>
+  </div>
+
+</div>
 
 {% endblock %}
