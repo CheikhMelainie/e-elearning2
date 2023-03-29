@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 
+<div class="row" style="margin-left: 35%;" >
+   <div class="col-md-8">
 <form method="POST">
    {% csrf_token %}
-   {{ form.as_p }}
-   <input type="submit" value="confirmer la modification" >
-   <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=lesson.matiere.slug niveau=lesson.niveaux.slug  %}" >annuler la modification</a>
+   {{ form|crispy }}
+   <input type="submit" value="confirmer la modification" class="btn btn-primary" >
+   <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=lesson.matiere.slug niveau=lesson.niveaux.slug  %} " class="btn btn-success" >annuler la modification</a>
 </form>
+
+</div>
+</div>
 
 {% endblock %}
 

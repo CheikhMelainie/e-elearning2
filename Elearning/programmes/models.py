@@ -1,6 +1,7 @@
 from distutils.command.upload import upload
 from msilib.schema import Verb
 from posixpath import split
+from pyexpat import model
 from tkinter import CASCADE
 from tokenize import blank_re
 from turtle import position
@@ -66,3 +67,31 @@ class Lesson(models.Model):
     
     def get_absolute_url(self):
         return reverse("programmes:lessonlist", kwargs={"slug": self.matiere.slug, "niveau": self.niveaux.slug})
+
+class Commentaire(models.Model):
+    nom_lesson = models.ForeignKey(Lesson, null=True, on_delete=models.CASCADE, related_name='comments')
+    nom_comm = models.CharField(max_length=100, blank=True)
+    #reponse = models.ForeignKey('Commnetaire', null=True, blank=True, on_delete=models.CASCADE, related_name='reponse')
+    auteur = models.ForeignKey(User, on_delete=models.CASCADE)
+    corps = models.TextField(max_length=500)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        self.nom_comm = slugify("commente par " + str(self.auteur)  + "a " + str(self.date_added) )
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nom_comm
+    
+    class Meta:
+        ordering = ['-date_added']
+
+
+class Reponse(models.Model):
+    nom_comm = models.ForeignKey(Commentaire, on_delete=models.CASCADE, related_name='reponses')
+    corps = models.TextField(max_length=500)
+    auteur = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "reponse a" + str(self.nom_comm.nom_comm)

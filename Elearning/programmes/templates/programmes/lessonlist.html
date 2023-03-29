@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-{% for lesson in matieres.lesson.all %}
-
-<div class="card-group" style="max-width: 40%;margin-left: 35%;">
+<div class="row" style="margin-left: 15%;">
+  {% for lesson in matieres.lesson.all %}
+  <div class="col-md-5">
     <div class="card">
-      <img src="{% static 'static_files/img/course-1.jpg'%}" class="card-img-top" alt="...">
+      <img src="{% static 'static_files/img/course-1.jpg'%}" alt="" class="card-ing-top">
       <div class="card-body">
-        <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=matieres.slug niveau=matieres.niveaux.slug  %}">Chapitre-{{ lesson.position }}  </a>
-        <p class="card-text"><small class="text-muted">{{ lesson.nom }}</small></p>
+        <div style="color: orange;" class="card-text" >Crée par : {{ lesson.creer_par }}</div>
+        <div style="color: orange;"  class="card-text" >Nom du Matiere :  {{ lesson.nom }}</div>
+        <div style="color: orange;"  class="card-text" >Chapitre :  {{ lesson.position }}</div>
+        <a href="{% url 'programmes:lessonlistdetail' slug=lesson.slug matiere=matieres.slug niveau=matieres.niveaux.slug  %}" class="btn btn-primary">Détaile</a>
+        <a href="{% url 'programmes:lessoncreate' niveau=matieres.niveaux.slug slug=matieres.slug  %}" class="btn btn-success" style="max-width: 40%;margin-left: 3%;">Creer une lesson</a>
+
       </div>
     </div>
-  
   </div>
-
-{% endfor %}
-<a href="{% url 'programmes:lessoncreate' niveau=matieres.niveaux.slug slug=matieres.slug  %}">Creer une lesson</a>
+  {% endfor %}
+</div>
 {% endblock %}
-
-

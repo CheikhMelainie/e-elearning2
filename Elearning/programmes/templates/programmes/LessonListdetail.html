@@ -10,13 +10,42 @@
       <img src="{% static 'static_files/img/course-1.jpg'%}" class="card-img-top" alt="...">
       <div class="card-body">
           <p>la lesson institule {{ lesson.nom }}  à été créer par {{ lesson.creer_par }} </p>
-          <a href="{% url 'programmes:lessonupdate' niveau=lesson.niveaux.slug matiere=lesson.matiere.slug slug=lesson.slug %}" >modifier la lesson</a>
-          <a href="{% url 'programmes:lessondelete' niveau=lesson.niveaux.slug matiere=lesson.matiere.slug slug=lesson.slug %}" >supprimer la lesson</a>
+          <a href="{% url 'programmes:lessonupdate' niveau=lesson.niveaux.slug matiere=lesson.matiere.slug slug=lesson.slug %}" class="btn btn-primary" >modifier la lesson</a>
+          <a href="{% url 'programmes:lessondelete' niveau=lesson.niveaux.slug matiere=lesson.matiere.slug slug=lesson.slug %}" class="btn btn-success" >supprimer la lesson</a>
   
       </div>
     </div>
   </div>
 
 </div>
+
+<h4>Poste votre commentaire ici bas.</h4>
+<form method="POST">
+       {% csrf_token %}
+     <div class="form-group">
+        {{ form.as_p }}
+        <input type="submit" name="form" value="commentez" class="btn btn-primary btn-sm">
+     </div>
+</form>
+
+{% for comment in lesson.comments.all %}
+<h4>  {{ comment.auteur }}<small> <i>poste le {{ comment.date_added }}</i> </small> </h4>
+<p>{{ comment.corps }}</p>
+{% for reponse in comment.reponses.all %}
+<h5>  {{ reponse.auteur }}<small> <i>poste le {{ reponse.date_added }}</i> </small> </h5>
+<p>{{ reponse.corps }}</p>
+  {% endfor %}
+
+      <form method="POST">
+
+        {% csrf_token %}
+        <input type="hidden" name="comment_id" value="{{comment.id}}">
+        {{ form2.as_p }}
+
+        <input type="submit" name="form2" value="Repondez" class="btn btn-warning btn-sm">
+
+      </form>
+
+{% endfor %}
 
 {% endblock %}

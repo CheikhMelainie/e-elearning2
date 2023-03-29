@@ -1,8 +1,39 @@
-from dataclasses import fields
+from cProfile import label
+from dataclasses import field, fields
+from pyexpat import model
+from tkinter import Widget
 from django import forms
-from .models import Lesson
+from .models import Lesson, Commentaire, Reponse
 
 class LessonForm(forms.ModelForm):
     class Meta():
         model = Lesson
         fields = ('lesson_id', 'nom', 'video', 'fpe', 'pdf' , 'position')
+
+class ComForm(forms.ModelForm):
+    class Meta:
+        model = Commentaire
+        fields = ('corps',)
+        labels = {'corps': 'Commentaires'}
+        Widgets = {
+            'corps' : forms.Textarea(attrs={
+                'class':'form-control',
+                'rows':4,
+                'cols':70,
+                'placeholder':'Entrez votre commentaire ici.'
+            })
+        }
+
+class RepForm(forms.ModelForm):
+    class Meta:
+        model = Reponse
+        fields = ('corps',)
+        labels = {'corps': 'Reponses'}
+        Widgets = {
+            'corps' : forms.Textarea(attrs={
+                'class':'form-control',
+                'rows':2,
+                'cols':10,
+                'placeholder':'Repondez a ce commentaire ici.'
+            })
+        }

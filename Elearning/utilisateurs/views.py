@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def acceuil(request):
-    return render(request, 'utilisateurs/index.html')
+    return render(request, 'base.html')
 
 
 def user_register(request):

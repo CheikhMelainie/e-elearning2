@@ -9,7 +9,7 @@
       <div class="card h-100">
         <img src="{% static 'static_files/img/course-1.jpg'%}" class="card-img-top" alt="...">
         <div class="card-body">
-            <a href="{% url 'programmes:lessonlist' slug=matiere.slug  niveau=niveau.slug %}"> {{ matiere.nom }} </a>
+            <a href="{% url 'programmes:lessonlist' slug=matiere.slug  niveau=niveau.slug %}" class="btn btn-primary"> {{ matiere.nom }} </a>
           <p class="card-text">{{ matiere.description }}</p>
         </div>
       </div>
